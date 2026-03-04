@@ -172,7 +172,7 @@ export function PricingCards({ theme = "light" }: { theme?: "light" | "dark" }) 
     return (
         <>
             {/* ══ PRICING CARDS ══ */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative px-2 sm:px-0 w-full overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative px-4 sm:px-4 lg:px-0 py-6 md:py-8 w-full max-w-7xl mx-auto">
                 {isFetchingPlan && (
                     <div className={`absolute inset-0 z-50 flex items-center justify-center rounded-2xl ${isDark ? "bg-zinc-950/50 backdrop-blur-sm" : "bg-white/50 backdrop-blur-sm"
                         }`}>

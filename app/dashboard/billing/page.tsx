@@ -127,17 +127,17 @@ export default function BillingPage() {
             </div>
 
             {/* ══ 2. TRUST STATS ══ */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 {trustStats.map((s) => (
                     <div
                         key={s.label}
-                        className="flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-white px-6 py-5 shadow-sm"
+                        className="flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-white px-4 py-4 sm:px-6 sm:py-5 shadow-sm text-center"
                     >
                         <span className={`flex h-10 w-10 items-center justify-center rounded-xl ${s.bg}`}>
                             <s.icon className={`h-5 w-5 ${s.color}`} />
                         </span>
-                        <p className="text-2xl font-extrabold text-gray-900 leading-none">{s.value}</p>
-                        <p className="text-xs text-gray-400 text-center">{s.label}</p>
+                        <p className="text-xl sm:text-2xl font-extrabold text-gray-900 leading-none">{s.value}</p>
+                        <p className="text-[10px] sm:text-xs text-gray-400">{s.label}</p>
                     </div>
                 ))}
             </div>
@@ -146,7 +146,7 @@ export default function BillingPage() {
             <PricingCards />
 
             {/* ══ 4. EVERYTHING INCLUDED ══ */}
-            <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">
+            <div className="rounded-2xl border border-gray-100 bg-white p-6 sm:p-8 shadow-sm">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
                     <div>
                         <h2 className="text-xl font-bold text-gray-900">Everything included in every plan</h2>
@@ -156,7 +156,7 @@ export default function BillingPage() {
                         <Check className="h-3.5 w-3.5" /> Always included
                     </span>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {included.map((item) => (
                         <div
                             key={item}
@@ -175,7 +175,7 @@ export default function BillingPage() {
             <div>
                 <h2 className="text-xl font-bold text-gray-900 mb-1">Why creators choose VidZilly</h2>
                 <p className="text-sm text-gray-500 mb-6">Built for speed, quality, and scale.</p>
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {highlights.map((h) => (
                         <div
                             key={h.title}

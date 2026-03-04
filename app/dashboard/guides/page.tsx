@@ -212,7 +212,7 @@ export default function GuidesPage() {
         <div className="mx-auto max-w-6xl px-4 py-10 space-y-14 pb-16">
 
             {/* ══ 1. HERO ══ */}
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-10 py-12 text-white">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-6 py-10 sm:px-10 sm:py-12 text-white">
                 <div className="pointer-events-none absolute inset-0 opacity-[0.04]"
                     style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
                 <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-purple-600 opacity-20 blur-3xl" />
@@ -222,28 +222,28 @@ export default function GuidesPage() {
                     <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-white/80 backdrop-blur-sm mb-4">
                         <BookOpen className="h-3.5 w-3.5" /> Documentation &amp; Guides
                     </span>
-                    <h1 className="text-4xl font-extrabold tracking-tight leading-tight">
+                    <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
                         Everything you need to master VidZilly
                     </h1>
-                    <p className="mt-3 text-white/60 text-base leading-relaxed">
+                    <p className="mt-3 text-white/60 text-sm sm:text-base leading-relaxed">
                         From your first video creation to full automation — find step-by-step
                         guides, tips, and best practices all in one place.
                     </p>
-                    <div className="mt-6 flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-5 py-3 backdrop-blur-sm max-w-md">
+                    <div className="mt-6 flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-4 sm:px-5 py-3 backdrop-blur-sm max-w-md">
                         <Search className="h-4 w-4 text-white/50 flex-shrink-0" />
-                        <span className="text-sm text-white/40">Search guides, tutorials...</span>
+                        <span className="text-sm text-white/40">Search guides...</span>
                         <kbd className="ml-auto rounded-md border border-white/20 bg-white/10 px-2 py-0.5 text-[10px] text-white/40">⌘K</kbd>
                     </div>
                 </div>
 
-                <div className="relative z-10 mt-8 flex flex-wrap gap-6">
+                <div className="relative z-10 mt-8 grid grid-cols-2 sm:flex sm:flex-wrap gap-4 sm:gap-6">
                     {[
                         { value: "39+", label: "Guides" },
                         { value: "6", label: "Categories" },
                         { value: "10min", label: "Avg read" },
                         { value: "Free", label: "Always free" },
                     ].map((s) => (
-                        <div key={s.label} className="text-center">
+                        <div key={s.label} className="text-left sm:text-center">
                             <p className="text-xl font-extrabold text-white leading-none">{s.value}</p>
                             <p className="text-xs text-white/50 mt-0.5">{s.label}</p>
                         </div>
@@ -259,7 +259,7 @@ export default function GuidesPage() {
                         <p className="text-sm text-gray-500 mt-0.5">Jump to what you need most.</p>
                     </div>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     {categories.map((cat) => (
                         <Link
                             key={cat.label}
@@ -280,7 +280,7 @@ export default function GuidesPage() {
             </div>
 
             {/* ══ 3. QUICK-START STEPS ══ */}
-            <div className="rounded-3xl border border-gray-100 bg-white p-8 shadow-sm">
+            <div className="rounded-3xl border border-gray-100 bg-white p-6 sm:p-8 shadow-sm">
                 <div className="flex items-center gap-3 mb-6">
                     <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-900">
                         <Lightbulb className="h-5 w-5 text-white" />
@@ -290,13 +290,13 @@ export default function GuidesPage() {
                         <p className="text-xs text-gray-500">You&apos;ll be publishing AI videos in under 15 minutes.</p>
                     </div>
                 </div>
-                <div className="grid sm:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-4">
                     {quickSteps.map((s, i) => (
                         <Link key={s.step} href={s.href} className="group relative flex flex-col gap-2 hover:opacity-90 transition-opacity">
                             {i < quickSteps.length - 1 && (
-                                <div className="hidden sm:block absolute top-5 left-full w-full h-px bg-gray-100 z-0" />
+                                <div className="hidden lg:block absolute top-5 left-full w-full h-px bg-gray-100 z-0" />
                             )}
-                            <span className="relative z-10 flex h-10 w-10 items-center justify-center rounded-2xl bg-gray-900 text-white text-sm font-bold group-hover:bg-purple-700 transition-colors">
+                            <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gray-900 text-white text-sm font-bold group-hover:bg-purple-700 transition-colors">
                                 {s.step}
                             </span>
                             <p className="font-semibold text-gray-900 text-sm group-hover:text-purple-700 transition-colors">{s.title}</p>

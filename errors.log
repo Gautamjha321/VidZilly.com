@@ -1,0 +1,9 @@
+actions/series.ts(62,24): error TS2304: Cannot find name 'userData'.
+remotion/Root.tsx(9,17): error TS2322: Type 'FC<GeneratedVideoProps>' is not assignable to type 'LooseComponentType<Record<string, unknown>>'.
+  Type 'FunctionComponent<GeneratedVideoProps>' is not assignable to type 'FunctionComponent<Record<string, unknown>>'.
+    Type 'Record<string, unknown>' is missing the following properties from type 'GeneratedVideoProps': script, audioUrl, captions, images
+remotion/Root.tsx(13,17): error TS2322: Type '({ props }: { props: GeneratedVideoProps; }) => { durationInFrames: number; props: GeneratedVideoProps; }' is not assignable to type 'CalculateMetadataFunction<Record<string, unknown>>'.
+  Types of parameters '__0' and 'options' are incompatible.
+    Type '{ defaultProps: Record<string, unknown>; props: Record<string, unknown>; abortSignal: AbortSignal; compositionId: string; isRendering: boolean; }' is not assignable to type '{ props: GeneratedVideoProps; }'.
+      Types of property 'props' are incompatible.
+        Type 'Record<string, unknown>' is missing the following properties from type 'GeneratedVideoProps': script, audioUrl, captions, images

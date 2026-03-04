@@ -63,7 +63,8 @@ export const helloWorld = inngest.createFunction(
 export const generateVideo = inngest.createFunction(
     {
         id: "generate-video",
-        retries: 0,
+        retries: 2,
+        concurrency: 1,
         onFailure: async ({ event, error }) => {
             const { videoId } = event.data.event.data;
             if (videoId) {

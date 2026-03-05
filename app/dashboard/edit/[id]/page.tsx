@@ -3,6 +3,10 @@ import SeriesForm, { SeriesFormData } from "../../create/_components/SeriesForm"
 import { redirect } from "next/navigation";
 import EditSeriesClientWrapper from "./EditSeriesClientWrapper";
 
+// Force dynamic rendering since getSeriesById() uses currentUser() which reads HTTP headers.
+export const dynamic = "force-dynamic";
+
+
 export default async function EditSeriesPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
 

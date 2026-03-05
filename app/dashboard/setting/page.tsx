@@ -3,6 +3,10 @@ import { getPlatformConnections } from "@/actions/connections";
 import { currentUser } from "@clerk/nextjs/server";
 import { createClient } from "@supabase/supabase-js";
 
+// Force dynamic rendering since this page uses currentUser() which reads HTTP headers.
+export const dynamic = "force-dynamic";
+
+
 export default async function SettingsPage() {
     const clerkUser = await currentUser();
 

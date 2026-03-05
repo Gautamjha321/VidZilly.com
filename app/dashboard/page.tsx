@@ -4,6 +4,11 @@ import SeriesGrid from "./_components/SeriesGrid";
 import DashboardStats from "./_components/DashboardStats";
 import { LayoutGrid } from "lucide-react";
 
+// Force this route to always be rendered dynamically (server-side per request)
+// because it uses Clerk's currentUser() which reads HTTP request headers.
+export const dynamic = "force-dynamic";
+
+
 export default async function DashboardPage() {
     const [{ success, data }, statsRes] = await Promise.all([
         getSeries(),

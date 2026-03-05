@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useUser, useClerk } from "@clerk/nextjs";
-import { Check, Loader2, Sparkles, X } from "lucide-react";
+import { Check, Loader2, Sparkles, X, AlertCircle } from "lucide-react";
 import confetti from "canvas-confetti";
 
 const plans = [
@@ -42,6 +42,8 @@ export function PricingCards({ theme = "light" }: { theme?: "light" | "dark" }) 
     const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
     const [activePlan, setActivePlan] = useState<string | null>(null);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [showFailedModal, setShowFailedModal] = useState(false);
+    const [failedReason, setFailedReason] = useState("");
     const [isFetchingPlan, setIsFetchingPlan] = useState(true);
 
     const isDark = theme === "dark";
@@ -110,7 +112,7 @@ export function PricingCards({ theme = "light" }: { theme?: "light" | "dark" }) 
 
             // 2. Open Razorpay Checkout
             const options = {
-                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_SLc6mSJmDgAfsf",
+                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
                 amount: orderData.amount,
                 currency: orderData.currency,
                 name: "VidZilly",
@@ -122,6 +124,12 @@ export function PricingCards({ theme = "light" }: { theme?: "light" | "dark" }) 
                 },
                 theme: {
                     color: isDark ? "#A855F7" : "#111827",
+                },
+                modal: {
+                    ondismiss: function () {
+                        setShowFailedModal(true);
+                        setFailedReason("Payment process was cancelled.");
+                    },
                 },
                 handler: async (res: any) => {
                     // 3. Verify Payment
@@ -148,7 +156,8 @@ export function PricingCards({ theme = "light" }: { theme?: "light" | "dark" }) 
                             colors: ['#A855F7', '#22D3EE', '#10B981', '#F59E0B']
                         });
                     } else {
-                        alert("Payment verification failed: " + verifyData.error);
+                        setShowFailedModal(true);
+                        setFailedReason(verifyData.error || "Payment verification failed.");
                     }
                 },
             };
@@ -156,14 +165,16 @@ export function PricingCards({ theme = "light" }: { theme?: "light" | "dark" }) 
             const rzp = new (window as any).Razorpay(options);
 
             rzp.on("payment.failed", function (response: any) {
-                alert("Payment Failed - " + response.error.description);
+                setShowFailedModal(true);
+                setFailedReason(response.error?.description || "Payment was cancelled or failed.");
             });
 
             rzp.open();
 
         } catch (error: any) {
             console.error("Subscription Error:", error);
-            alert(error.message || "An error occurred while initiating the payment.");
+            setShowFailedModal(true);
+            setFailedReason(error.message || "An error occurred while initiating the payment.");
         } finally {
             setLoadingPlan(null);
         }
@@ -254,6 +265,48 @@ export function PricingCards({ theme = "light" }: { theme?: "light" | "dark" }) 
                     </div>
                 ))}
             </div>
+
+            {/* ══ FAILED MODAL ══ */}
+            {showFailedModal && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+                    <div
+                        className="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
+                        onClick={() => setShowFailedModal(false)}
+                    />
+
+                    <div className={`relative w-full max-w-sm overflow-hidden rounded-3xl p-8 shadow-2xl animate-in zoom-in-95 fade-in-0 duration-300 ${isDark ? "bg-zinc-900 border border-zinc-800" : "bg-white"
+                        }`}>
+                        {/* Close button */}
+                        <button
+                            onClick={() => setShowFailedModal(false)}
+                            className={`absolute right-4 top-4 rounded-full p-2 transition-colors ${isDark ? "text-zinc-400 hover:bg-zinc-800 hover:text-white" : "text-gray-400 hover:bg-gray-100 hover:text-gray-900"
+                                }`}
+                        >
+                            <X className="h-5 w-5" />
+                        </button>
+
+                        <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full mb-6 ${isDark ? "bg-red-500/10" : "bg-red-50"
+                            }`}>
+                            <AlertCircle className={`h-8 w-8 ${isDark ? "text-red-400" : "text-red-600"}`} />
+                        </div>
+
+                        <div className="text-center">
+                            <h3 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>Payment Failed</h3>
+                            <p className={`text-sm mb-8 leading-relaxed ${isDark ? "text-zinc-400" : "text-gray-500"}`}>
+                                {failedReason}
+                            </p>
+
+                            <button
+                                onClick={() => setShowFailedModal(false)}
+                                className={`w-full rounded-xl py-3.5 px-4 text-sm font-semibold text-white shadow-sm transition-colors flex items-center justify-center ${isDark ? "bg-zinc-800 hover:bg-zinc-700" : "bg-gray-900 hover:bg-gray-800"
+                                    }`}
+                            >
+                                Try Again
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* ══ SUCCESS MODAL ══ */}
             {showSuccessModal && (

@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
         }
         const user_id = user.id;
 
-        const key_secret = process.env.RAZORPAY_KEY_SECRET || "8KDGo85on9IAEzmAMNlwt9dS";
+        const key_secret = process.env.RAZORPAY_KEY_SECRET!;
 
         // Verify signature
         const generated_signature = crypto
